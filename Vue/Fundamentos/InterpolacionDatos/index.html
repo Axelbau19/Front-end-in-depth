@@ -12,11 +12,12 @@
             {
                 data(){
                     return {
-                        text:'<p>Hola Vue</p>'
+                        img: "https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp"
+                        //text:'<p>Hola Vue</p>'
                     };
                 },
                 //Cambiar directiva
-                template : `<p v-html="text"></p>`
+                template : `<img v-bind:src="img" v-bind:alt="img">`
             }
         ).mount("#app");
     </script>
