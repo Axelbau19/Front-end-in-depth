@@ -12,11 +12,17 @@
             {
                 data(){
                     return {
-                        text:'<p>Hola Vue</p>'
+                        counter:0
+                        //text:'<p>Hola Vue</p>'
                     };
                 },
+                methods:{
+                    increment(){
+                        this.counter+=1;
+                    }
+                },
                 //Cambiar directiva
-                template : `<p v-html="text"></p>`
+                template : `<button v-on:click="increment">{{counter}}</button>`
             }
         ).mount("#app");
     </script>
