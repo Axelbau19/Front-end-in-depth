@@ -12,12 +12,18 @@
             {
                 data(){
                     return {
-                        img: "https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp"
+                        counter: 0
+                        //img: "https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp"
                         //text:'<p>Hola Vue</p>'
                     };
                 },
+                methods:{
+                    increment(){
+                        this.counter+=1
+                    }
+                },
                 //Cambiar directiva
-                template : `<img v-bind:src="img" v-bind:alt="img">`
+                template : `<button v-on:click="increment">{{counter}}</button>`
             }
         ).mount("#app");
     </script>
