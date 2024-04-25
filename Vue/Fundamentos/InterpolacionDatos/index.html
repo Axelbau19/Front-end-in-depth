@@ -8,6 +8,7 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <div id="app"></div>
     <script>
+        //Crear un componente de contador con incremento y decremento 
         const vm = Vue.createApp(
             {
                 data(){
@@ -22,7 +23,7 @@
                     }
                 },
                 //Cambiar directiva
-                template : `<button v-on:click="increment">{{counter}}</button>`
+                template : `<button v-on:submit="increment">{{counter}}</button>`
             }
         ).mount("#app");
     </script>
