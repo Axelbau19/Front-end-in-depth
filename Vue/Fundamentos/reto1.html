@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style scoped>
+        #app{
+            border: 1px solid black;
+            margin: 0 50px 25px;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 10px 25px 25px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        button{
+            border: 1px solid transparent;
+            padding: 5px 10px;
+            transition: border-color 0.15;
+        }
+        button[disabled]{
+            opacity: 0.5;
+        }
+        
+    </style>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <div id="app"></div>
+    <script>
+        //Crear un componente de contador con incremento y decremento 
+        const vm = Vue.createApp(
+            {
+                data(){
+                    return {
+                        counter:0
+                        //text:'<p>Hola Vue</p>'
+                    };
+                },
+                methods:{
+                    increment(){
+                        this.counter+=1;
+                    },
+                    decrement(){
+                        this.counter-=1;
+                    },
+                },
+                //Cambiar directiva
+                template : `
+                                <button v-on:click="decrement" :disabled="counter<=0">-</button>
+                                <h2>{{counter}}</h2>
+                                <button v-on:click="increment" >+</button>
+                            `
+            }
+        ).mount("#app");
+    </script>
+</body>
+</html>

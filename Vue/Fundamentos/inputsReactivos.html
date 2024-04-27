@@ -13,17 +13,18 @@
             {
                 data(){
                     return {
-                        counter:0
-                        //text:'<p>Hola Vue</p>'
+                        text:"Hola vue"
                     };
                 },
                 methods:{
-                    increment(){
-                        this.counter+=1;
+                    input(e){
+                        this.text = e.target.value;
                     }
                 },
-                //Cambiar directiva
-                template : `<button v-on:submit="increment">{{counter}}</button>`
+                template : `
+                <p>{{text}}</p>
+                <input type="text" v-model="text"/>
+                `
             }
         ).mount("#app");
     </script>
