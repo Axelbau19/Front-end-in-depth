@@ -1,0 +1,125 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <div id="app"></div>
+    <script>
+        //Crear un componente de contador con incremento y decremento 
+        const app = Vue.createApp(
+            {
+                data(){
+                    return {
+                        username: "",
+                        text:"Acceder a tu cuenta",
+                        state: false,
+                        posts:[{
+                            title:"Item 1",
+                            description: "Lorem Ipsum.."
+                        },{
+                            title:"Item 2",
+                            description: "Lorem Ipsum.."
+                        },{
+                            title:"Item 3",
+                            description: "Lorem Ipsum.."
+                        },{
+                            title:"Item 4",
+                            description: "Lorem Ipsum.."
+                        },
+                    ]
+                    };
+                },
+                watch:{
+                    state(value){
+                        return   {
+                            text: value ? this.text = "Cierra sesión": this.text="Acceder a tu cuenta",
+                            username: !value ? this.username = "": this.username
+                        }
+                    }
+                },
+                computed:{
+                    changeColor(){
+                        return this.state ? ['open'] : ['closed'];
+                    }
+                },
+                //Cambiar directiva
+                template : `
+                <div class="container" :class="changeColor">
+                    <h2>{{text}}</h2>
+                    <div v-if="state">
+                        <p>Hola,{{username}}</p>
+                        <div class = "list">
+                            <item v-for="(item,i) in posts" :key="i"
+                            :post="item"/>
+                        </div>
+                    </div>
+                    <div v-else>
+                        <div>Username</div>
+                        <input  type="text" v-model='username'>
+                    </div>
+
+                    <button @click="state = !state">
+                        <div v-if="!state">Acceder</div>
+                        <div v-else>Salir</div>
+                    </button>
+                </div>
+                `
+            }
+        );
+
+        app.component("item",{
+            props:["post"],
+            template:`
+                        <div class="item">
+                            <div class="title">{{post.title}}</div>
+                            <p>{{post.description}}</p>
+                        </div>`
+        }
+        )
+        const vm =app.mount("#app");
+    </script>
+    <style>
+        html, body {
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #app, .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+        button {
+            margin-top: 24px;
+            border: none;
+            background-color: white;
+            padding: 8px 24px;
+            border-radius: 12px;
+        }
+        .closed {
+            background-color: #eca1a6;
+        }
+        .open {
+            background-color: #b5e7a0;
+        }
+        .list{
+            display: flex;
+            flex-direction: column;
+        }
+        .item{
+            border: 1px solid #e5e5e5;
+
+        }
+        .title{
+            font-weight: bold;
+            font-size: 1.2rem ;
+        }
+    </style>
+</body>
+</html>
