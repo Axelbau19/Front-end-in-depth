@@ -1,16 +1,44 @@
 <template>
-  <HomeView/>
+  <Suspense>
+    <template #default>
+      <Home/>
+    </template>
+    <template #fallback >
+      <SplashScreen/>
+    </template>
+  </Suspense>
 </template>
 
 <script>
-  import HomeView from '@/components/HomeView.vue';
+import SplashScreen from './components/SplashScreen.vue';
+//create a component async 
+import { defineAsyncComponent } from 'vue';
   export default{
     components:{
-      HomeView
+      SplashScreen,
+      //setup a delay 
+      //Logic to make a component async
+      Home: defineAsyncComponent(()=>{
+       return new Promise((resolve)=>{
+          setTimeout(()=>{
+            resolve(import("./components/HomeView.vue"))
+          },2500)
+        })
+      })
     }
   }
 </script>
 
 <style>
-
+  html,
+  body,
+  .app {
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  * {
+    --brand-green: #04b500;
+    --brand-blue: #0689b0;
+  }
 </style>
