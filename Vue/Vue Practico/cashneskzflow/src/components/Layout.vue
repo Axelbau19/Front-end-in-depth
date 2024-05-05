@@ -1,9 +1,28 @@
 <template>
-    <div class="header">
-        <slot name="header"></slot>
+<div>
+  <div class="header">
+    <slot name="header"></slot>
+  </div>
+  <div class="resume">
+    <slot name="resume"></slot>
+  </div>
+  <div class="movements">
+    <div class="head" @click="showMounted=!showMounted">
+      <div class="grip"></div>
     </div>
+    <!--Here a make a logic about open div -->
+    <div class="body" v-show="showMounted">
+      <slot name="movements"></slot>
+    </div>
+  </div>
+</div>
 </template>
 
+<script setup>
+//Composition API
+import { ref } from "vue";
+const showMounted = ref(false);
+</script>
 <style scoped>
 .header,
 .resume,
