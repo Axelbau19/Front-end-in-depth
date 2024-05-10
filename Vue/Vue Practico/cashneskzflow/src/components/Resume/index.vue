@@ -1,7 +1,7 @@
 <template>
     <main>
-        <p>{{labelVisual}}</p>
-        <h1>{{amountDivisa}}</h1>
+        <p >{{labelVisual}}</p>
+        <h1 :class="{'red':negativeAmount, 'green':positiveAmount }">{{amountDivisa}}</h1>
         <div class="graphic">
             <slot name="graphic"></slot>
         </div>
@@ -37,6 +37,7 @@ export default{
             default: null
         }
     },
+    //Aqui es el cambio de color
     computed:{
         amountVisual(){
             return this.amount != null ? this.amount: this.totalAmount;
@@ -46,6 +47,12 @@ export default{
         },
         amountDivisa(){
             return divisa.format(this.amountVisual)
+        },
+        negativeAmount(){
+            return this.amount <0 || this.totalAmount<0;
+        },
+        positiveAmount(){
+            return this.amount >0 || this.totalAmount>0;
         }
     }
 }
@@ -75,5 +82,11 @@ h1 {
   width: 100%;
   padding: 48px 24px;
   box-sizing: border-box;
+}
+.red {
+    color: red;
+}
+.green {
+    color: green;
 }
 </style>

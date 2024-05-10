@@ -18,7 +18,7 @@ const formatterDivisa = new Intl.NumberFormat("es-MX",{
 });
 const props = defineProps({
     id:{
-        type: Number
+        type: String
     },
     title:{
         type:String,
