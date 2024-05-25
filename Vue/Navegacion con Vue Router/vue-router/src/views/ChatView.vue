@@ -9,7 +9,7 @@
                 </div>
             </aside>
             <article>
-                {{this.$route.params.chatId}}
+                <router-view/> 
             </article>
         </div>
     </div>
@@ -19,7 +19,21 @@
 export default {
     data(){
         return{
-            chats: [
+            chats: []
+        }
+    },
+    /*
+    watch:{
+        '$route.params': (val)=> {
+            console.log('update params',val);
+        }
+    },*/
+    created(){
+        this.$watch(
+            () => this.$route.params,
+            (val) => {
+                console.log('actulizacion de params',val)
+                this.chats = [
                 {
                     id:0,
                     name: "Axel"
@@ -31,9 +45,12 @@ export default {
                  {
                     id:2,
                     name: "Scott"
-                },               
-            ]
-        }
+                },  
+                ]
+            },
+            //Configuracion del watcher
+            {immediate: true}
+        )
     }
 }
 </script>

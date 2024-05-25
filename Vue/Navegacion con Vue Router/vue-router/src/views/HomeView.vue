@@ -4,6 +4,22 @@ export default {
     return {
       username: ""
     }
+  },
+  methods:{
+    iniciarSesion(){
+      //insertar un objeto JSON
+      this.$router.push({
+        path: '/chats',
+        //mandar variables
+        query:{
+          var1 : 2
+        },
+        //evita generar nuevos puntos
+        replace: true
+      })
+      //Numero de pasos de navegacion 
+      this.$router.go(1)
+    }
   }
 }
 </script>
@@ -12,7 +28,6 @@ export default {
   <main>
     <h3>Introduce tu nombre de usuario</h3>
     <input placeholder="Username" v-model="username">
-    <h3>Introduce la contraseña</h3>
-    <input placeholder="Password" v-model="username">
+    <button @click="iniciarSesion">Iniciar sesion</button>
   </main>
 </template>
