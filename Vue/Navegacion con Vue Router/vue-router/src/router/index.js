@@ -2,11 +2,16 @@
 //Agregamos el metodo hash
 import { createRouter, createWebHashHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
-
+import NotFoundView from '../views/404View.vue'
+const status = import.meta.env.VITE_STATUS
 const router = createRouter({
   history: createWebHashHistory(),
   //Aqui van las rutas
   routes: [
+    {
+      path: '/404', component: NotFoundView
+    },
+    {path: '/:cathcAll(.*)', redirect:'/404'},
     //Reedirecionar al home
     //{path: '/home', redirect:'/'},
     //utilizamos name para nombrar la rutas
@@ -38,7 +43,8 @@ const router = createRouter({
       //Creando una ruta anidada
       children:[
         { 
-          path: ':chatId',
+          //Expresion regular
+          path: ':chatId(\\d+)',
            component: ()=>  import('../views/ChiatView.vue'),
            //Toma los params y props 
           props: (route) => {
@@ -54,8 +60,12 @@ const router = createRouter({
     }
   ]
 })
-//Guardas de navegacion
 
+//Solamente para modo test
+if(status === 'test'){
+  router.addRoute({path: '/profile', component: () => import('../views/ProfileView.vue')})
+}
+//Guardas de navegacion
 router.beforeEach((to,from) =>{
   console.log(to,from)
   /*if(to.meta?.requiresAuth && to.meta?.roles.includes('admin') ){

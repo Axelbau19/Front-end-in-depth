@@ -1,28 +1,13 @@
-<script >
-export default {
-  data(){
-    return {
-      username: ""
-    }
-  },
-  methods:{
-    iniciarSesion(){
-      //insertar un objeto JSON
-      this.$router.push({
-        path: '/chats',
-        //mandar variables
-        query:{
-          var1 : 2
-        },
-        //evita generar nuevos puntos
-        replace: true
-      })
-      //Numero de pasos de navegacion 
-      this.$router.go(1)
-    }
-  }
-}
+<script setup>
+import {ref} from 'vue'
+import {useRouter} from 'vue-router'
+ const username = ref()
+ const router = useRouter()
+ function iniciarSesion(){
+  router.push({name:'about'})
+ }
 </script>
+
 
 <template>
   <main>

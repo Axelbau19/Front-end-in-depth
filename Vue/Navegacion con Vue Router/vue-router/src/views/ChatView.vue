@@ -15,25 +15,17 @@
     </div>
 </template>
 
-<script>
-export default {
-    data(){
-        return{
-            chats: []
-        }
-    },
-    /*
-    watch:{
-        '$route.params': (val)=> {
-            console.log('update params',val);
-        }
-    },*/
-    created(){
-        this.$watch(
-            () => this.$route.params,
-            (val) => {
+<script setup>
+import {ref, watch} from 'vue'
+import {useRoute} from 'vue-router'
+const chats = ref();
+const route = useRoute()
+watch(
+    ()=> route.params,
+    (val) => {
+
                 console.log('actulizacion de params',val)
-                this.chats = [
+                chats.value = [
                 {
                     id:0,
                     name: "Axel"
@@ -45,12 +37,12 @@ export default {
                  {
                     id:2,
                     name: "Scott"
-                },  
-                ]
-            },
-            //Configuracion del watcher
-            {immediate: true}
-        )
-    }
+                },
+                ] 
+
+},
+{
+    immediate:true
 }
+)
 </script>
