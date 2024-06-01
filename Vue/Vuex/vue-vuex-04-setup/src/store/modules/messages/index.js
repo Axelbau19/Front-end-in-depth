@@ -11,13 +11,21 @@ const module = {
                     readMenssages: false,
                     idChannel: 1
                 },
+                {
+                    id: 2,
+                    author: 2, 
+                    text: 'Concerga',
+                    timestamp: new Date().toLocaleDateString(),
+                    readMenssages: false,
+                    idChannel: 2
+                },
 
             ]
         }
     },
     getters:{
-        getMessages: (state) =>(idChannel)=> {
-            return state.messages.filter((msg)=>msg.idChannel == idChannel )
+        getMessages: (state) => (idChannel) =>{
+            return state.messages.filter((messages)=> messages.idChannel === parseInt(idChannel))
         }
     }
 }
