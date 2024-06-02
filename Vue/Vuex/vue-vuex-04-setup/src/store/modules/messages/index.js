@@ -19,6 +19,22 @@ const module = {
                     readMenssages: false,
                     idChannel: 2
                 },
+                {
+                    id: 3,
+                    author: 3, 
+                    text: 'Kobe in LA',
+                    timestamp: new Date().toLocaleDateString(),
+                    readMenssages: false,
+                    idChannel: 2
+                },
+                {
+                    id: 4,
+                    author: 1, 
+                    text: 'Perro Negro',
+                    timestamp: new Date().toLocaleDateString(),
+                    readMenssages: false,
+                    idChannel: 2
+                },
 
             ]
         }
@@ -26,6 +42,19 @@ const module = {
     getters:{
         getMessages: (state) => (idChannel) =>{
             return state.messages.filter((messages)=> messages.idChannel === parseInt(idChannel))
+        },
+        getUnreadMessages: (state,getters,rootState,rootGetters) => (idChannel) => {
+
+            return getters.getMessages(idChannel).filter((message) => message.readMenssages === false).length
+        } 
+    },
+    mutations:{
+        markAsRead(state,idChannel){
+            state.messages.map((message) => {
+                if(message.idChannel===idChannel){
+                    message.readMenssages=true
+                }
+            })
         }
     }
 }

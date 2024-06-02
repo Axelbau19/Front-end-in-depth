@@ -3,7 +3,7 @@ import { RouterView, RouterLink } from 'vue-router'
 import InputSearch from '@/components/InputSearch.vue'
 import ProfileCard from '@/components/ProfileCard.vue'
 import ChatItem from '@/components/ChatItem.vue'
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -25,8 +25,11 @@ export default {
   computed: {
     ...mapState(['status']),
     ...mapGetters('profile', ['firstName']),
-    ...mapGetters('channels',['getChannels'])
+    ...mapGetters('channels',['getChannels']),
   },
+  methods:{
+    ...mapMutations('messages',['markAsRead'])
+  }
 }
 </script>
 
@@ -46,7 +49,8 @@ export default {
         :key="channel.id"
         :id="channel.id"
         :name="channel.nameChat"
-        :messages="channel.messages.length"
+        :messages="channel.messages"
+        @click="markAsRead(channel.id)"
       />
     </div>
   </aside>

@@ -3,26 +3,35 @@
     <div class="box">
       <img src="/avatars/userunknown.jpg" alt="avatar" />
       <label for="username">Nombre de usuario</label>
-      <input type="text"  :value="username" @input="updateUsername($event.target.value)" />
-      <button>Acceder</button>
+      <input type="text" v-model="newUsername" />
+      <button @click="submitUsername">Actualizar</button>
     </div>
   </div>
 </template>
 
 <script>
-import {mapState,mapActions} from 'vuex'
-export default{
-  computed:{
-      ...mapState({
-    username: (state) => state.profile.username
-  })
+import { mapState, mapActions } from 'vuex'
+
+export default {
+  data() {
+    return {
+      newUsername: this.username 
+    }
   },
-  methods:{
-    ...mapActions('profile',['updateUsername'])
+  computed: {
+    ...mapState({
+      username: (state) => state.profile.username
+    })
   },
+  methods: {
+    ...mapActions('profile', ['updateUsername']),
+    async submitUsername() {
+      await this.updateUsername(this.newUsername)
+      this.$router.push('/')
+    }
+  }
 }
 </script>
-
 
 <style lang="scss" scoped>
 .profile {

@@ -1,6 +1,6 @@
 <script>
 import MessageItem from '@/components/MessageItem.vue'
-import {mapGetters} from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
 
 export default {
   components: {
@@ -9,7 +9,7 @@ export default {
   data() {
     return {
       idChannel: null,
-      title: 'Chat Grupal',
+      title: 'Chat ',
       people: [
         { id: 1, name: 'Tú', avatar: '/avatars/Me.jpg' },
         { id: 2, name: 'Jason', avatar: '/avatars/Person2.jpg' },
@@ -19,9 +19,10 @@ export default {
   },
   computed: {
     ...mapGetters('messages',['getMessages']),
+    ...mapGetters('contacts',['getContactId']),
     messagesView() {
       return this.getMessages(this.idChannel)?.map((message) => {
-        const author = this.people.find((p) => p.id === message.author)
+        const author = this.getContactId(message.author)
         if (!author) return message;
         return {
           ...message,
@@ -48,7 +49,11 @@ export default {
       this.$refs?.end?.scrollIntoView({
           behavior: 'smooth'
       })
-    }
+    },
+  ...mapMutations('channels', ['updateChatTitle']),
+  changeNameChat(newTitle) {
+    this.updateChatTitle({ channelId: this.idChannel, newTitle }); // Pasar un objeto con channelId y newTitle
+  }
   },
 }
 </script>
